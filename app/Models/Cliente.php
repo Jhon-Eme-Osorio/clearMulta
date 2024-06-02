@@ -15,7 +15,6 @@ class Cliente extends Model
         'email',
         'tipo_documento',
         'numero_identidad',
-        'email',
         'telefono',
         'fecha_nacimiento',
         'direccion',

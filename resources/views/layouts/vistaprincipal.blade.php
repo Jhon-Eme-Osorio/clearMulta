@@ -17,7 +17,7 @@
 <body>
     <nav class="navbar  navbar-expand-lg  bg-dark border-bottom border-body" data-bs-theme="dark" id="navbar-example2">
         <div class="container-fluid">
-            <a class="navbar-brand" href="#"><img src="{{ asset('imagenes/logo.svg') }}" alt="logo"
+            <a class="navbar-brand" href="{{ route('home') }}"><img src="{{ asset('imagenes/logo.svg') }}" alt="logo"
                     width="90px" height="60px"></a>
             <button class="navbar-toggler" type="button" data-bs-toggle="collapse"
                 data-bs-target="#navbarSupportedContent" aria-controls="navbarSupportedContent" aria-expanded="false"
@@ -25,28 +25,42 @@
                 <span class="navbar-toggler-icon"></span>
             </button>
             <div class="collapse navbar-collapse" id="navbarSupportedContent">
-                <ul class="navbar-nav  ms-auto mb-2 mb-lg-0">
+                <ul class="navbar-nav nav-tabs ms-auto mb-2 mb-lg-0">
                     <li class="nav-item text-center">
-                        <a class="nav-link " href="#section1">Inicio</a>
+                        <a class="nav-link active" aria-current="page" href="{{ route('home') }}">Inicio</a>
                     </li>
                     <li class="nav-item text-center">
-                        <a class="nav-link " href="#section2">Registro</a>
+                        <a class="nav-link " href="{{ route('registro') }}">Registro</a>
                     </li>
                     <li class="nav-item text-center">
-                        <a class="nav-link " href="#section3">Multa</a>
+                        <a class="nav-link " href="{{ route('multa') }}">Multa</a>
                     </li>
                     <li class="nav-item dropdown dropstart text-center">
-                        <a class="nav-link dropdown-toggle" href="#" role="button" data-bs-toggle="dropdown"
-                            aria-expanded="false">
-                            Ayuda
-                        </a>
+                        @if (Route::currentRouteName() == 'contacto')
+                            <a class="nav-link dropdown-toggle" href="{{ route('contacto') }}" role="button"
+                                data-bs-toggle="dropdown" aria-expanded="false">
+                                Ayuda
+                            </a>
+                        @elseif (Route::currentRouteName() == '#')
+                            <a class="nav-link dropdown-toggle" href="{{ route('#') }}" role="button"
+                                data-bs-toggle="dropdown" aria-expanded="false">
+                                Ayuda
+                            </a>
+                        @else
+                            <a class="nav-link dropdown-toggle" href="#" role="button" data-bs-toggle="dropdown"
+                                aria-expanded="false">
+                                Ayuda
+                            </a>
+                        @endif
                         <ul class="dropdown-menu">
-                            <li><a class="dropdown-item text-center" href="#">Contacto</a></li>
-                            <li><a class="dropdown-item text-center" href="#">Preguntas frecuentes</a></li>
+                            <li><a class="dropdown-item text-center" href="{{ route('contacto') }}">Contacto</a>
+                            </li>
+                            <li><a class="dropdown-item text-center" href="{{ route('multa') }}">Preguntas
+                                    frecuentes</a></li>
                         </ul>
                     </li>
                     <li class="nav-item text-center">
-                        <a class="nav-link " href="#section3">Nosotros</a>
+                        <a class="nav-link " href="#">Nosotros</a>
                     </li>
                 </ul>
             </div>
@@ -59,17 +73,6 @@
             @yield('contenido')
         </div>
 
-        <div id="section2">
-            @yield('contenido2')
-        </div>
-
-        <div id="section3">
-            @yield('contenido3')
-        </div>
-
-        <div id="section4">
-            @yield('contenido4')
-        </div>
 
 
     </main>
@@ -134,7 +137,7 @@
                             <i class="fas fa-gem me-3"></i>ClearMulta
                         </h6>
                         <p>
-                            <a href="#!" class="text-reset text-decoration-none">politica de privacida</a>
+                            <a href="#!" class="text-reset text-decoration-none">politica de privacidad</a>
                         </p>
                         <p>
                             <a href="#!" class="text-reset text-decoration-none">termino y condiciones</a>
@@ -156,8 +159,31 @@
         <!-- Copyright -->
     </footer>
     <!-- Footer -->
+    <script>
+        // Esperar a que el DOM esté completamente cargado
+        document.addEventListener('DOMContentLoaded', (event) => {
+            // Obtener la URL actual
+            let currentUrl = window.location.href;
 
-    <script src="https://cdn.jsdelivr.net/npm/bootstrap@5.3.3/dist/js/bootstrap.bundle.min.js" integrity="sha384-YvpcrYf0tY3lHB60NNkmXc5s9fDVZLESaAA55NDzOxhy9GkcIdslK1eN7N6jIeHz" crossorigin="anonymous"></script>
+            // Obtener todos los enlaces de navegación
+            let navLinks = document.querySelectorAll('.navbar-nav .nav-link');
+
+            navLinks.forEach(link => {
+                // Verificar si el enlace coincide con la URL actual
+                if (link.href === currentUrl) {
+                    // Añadir la clase 'active' al enlace correspondiente
+                    link.classList.add('active');
+                } else {
+                    // Asegurarse de que los otros enlaces no tengan la clase 'active'
+                    link.classList.remove('active');
+                }
+            });
+        });
+    </script>
+
+    <script src="https://cdn.jsdelivr.net/npm/bootstrap@5.3.3/dist/js/bootstrap.bundle.min.js"
+        integrity="sha384-YvpcrYf0tY3lHB60NNkmXc5s9fDVZLESaAA55NDzOxhy9GkcIdslK1eN7N6jIeHz" crossorigin="anonymous">
+    </script>
 
 </body>
 

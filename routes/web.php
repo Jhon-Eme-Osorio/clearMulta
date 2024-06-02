@@ -1,5 +1,8 @@
 <?php
 
+use App\Http\Controllers\ContactoController;
+use App\Http\Controllers\MultaController;
+use App\Http\Controllers\RegistroController;
 use Illuminate\Support\Facades\Route;
 
 /*
@@ -20,6 +23,10 @@ use Illuminate\Support\Facades\Route;
 Route::get('/', function () {
     return view('home.index'); 
 })->name('home');
+
+Route::get('/registro', [RegistroController::class,'index'])->name('registro');
+Route::get('/multa', [MultaController::class,'index'])->name('multa');
+Route::get('contacto', [ContactoController::class,'index'])->name('contacto');
 
 Route::middleware([
     'auth:sanctum',
